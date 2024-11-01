@@ -1,6 +1,7 @@
 return {
   {
     "christoomey/vim-tmux-navigator",
+    lazy = false,
     cmd = {
       "TmuxNavigateLeft",
       "TmuxNavigateDown",
@@ -16,31 +17,27 @@ return {
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
+  -- Treesitter for syntax highlighting
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "go" }, -- Make sure Go is installed
+        highlight = { enable = true },
+        indent = { enable = true },
+      })
+    end,
+  },
+
+  -- LSP support for Go
   {
     "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        gopls = {
-          settings = {
-            gopls = {
-              analyses = {
-                unusedparams = true,
-              },
-              staticcheck = true,
-              gofumpt = true,
-              codelenses = {
-                gc_details = true,
-                generate = true,
-                regenerate_cgo = true,
-                test = true,
-                tidy = true,
-              },
-            },
-          },
-        },
-      },
-    },
-  },  -- Optional but recommended for better Go code formatting
+    config = function()
+      require("lspconfig").gopls.setup({})
+    end,
+  },
+  -- Optional but recommended for better Go code formatting
   {
     "stevearc/conform.nvim",
     opts = {
