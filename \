@@ -17,15 +17,6 @@ return {
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
-
-  -- Telescope for fuzzy finding
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-  },
-
   -- Treesitter for syntax highlighting
   {
     "nvim-treesitter/nvim-treesitter",
@@ -42,11 +33,11 @@ return {
   -- LSP support for Go
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "mason.nvim",
-      "telescope.nvim",
-      "which-key.nvim",
-    },
+    config = function()
+      local lspconfig = require("lspconfig")
+      -- Setup gopls
+      lspconfig.gopls.setup({})
+    end,
   },
   -- Optional but recommended for better Go code formatting
   {
@@ -55,16 +46,6 @@ return {
       formatters_by_ft = {
         go = { "gofumpt", "goimports" },
       },
-    },
-  },
-
-  -- Auto completion
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
     },
   },
 }
