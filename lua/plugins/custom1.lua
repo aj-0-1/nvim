@@ -18,11 +18,16 @@ return {
     },
   },
 
-  -- Telescope for fuzzy finding
+-- Telescope for fuzzy finding
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
+    },
+    keys = {
+      -- Add this section for keymaps
+      { "<leader>sc", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search current file" },
+      -- You can add more custom telescope bindings here if you want
     },
   },
 
